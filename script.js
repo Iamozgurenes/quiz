@@ -18,6 +18,9 @@ document.querySelector(".next_btn").addEventListener("click", function() {
         document.querySelector(".next_btn").classList.remove("show");
     } else {
         console.log("quiz bitti");
+        document.querySelector(".quiz_box").classList.remove("active");
+        skoruGoster(quiz.sorular.length, quiz.dogruCevapSayisi, quiz.yanlısCevapSayisi);
+        document.querySelector(".score_box").classList.add("active");
     }
 });
 
@@ -52,9 +55,11 @@ function optionSelected(option) {
     let soru = quiz.soruGetir();
 
     if(soru.cevabiKontrolEt(cevap)) {
+        quiz.dogruCevapSayisi += 1;
         option.classList.add("correct");
         option.insertAdjacentHTML("beforeend", correctIcon);
     } else {
+        quiz.yanlısCevapSayisi += 1;
         option.classList.add("incorrect");
         option.insertAdjacentHTML("beforeend", incorrectIcon);
     }
@@ -71,3 +76,21 @@ function soruSayisiGoster(soruSirası , toplamSoru) {
     let tag = `<span class="badge bg-warning">${soruSirası} / ${toplamSoru}</span>`;
     document.querySelector(".quiz_box .question_index").innerHTML = tag;
 }
+
+function skoruGoster( toplamSoru, dogruCevapSayisi , yanlısCevapSayisi) {
+    let tag = ` Toplam <span class="txt_t text-primary">${toplamSoru} </span> sorudan <span class="txt_t text-success">${dogruCevapSayisi} </span> doğru cevap, <span class="txt_t text-danger">${yanlısCevapSayisi} </span> yanlış cevap verdiniz.`;
+    document.querySelector(".score_text").innerHTML = tag;
+}
+
+document.querySelector(".btn_quit").addEventListener("click", function() {
+    window.location.reload();
+});
+
+
+document.querySelector(".btn_replay").addEventListener("click", function() {
+    quiz.soruIndex = 0;
+    quiz.dogruCevapSayisi = 0;
+    quiz.yanlısCevapSayisi = 0;
+    document.querySelector(".score_box").classList.remove("active");
+    document.querySelector(".btn_start").click();
+});
