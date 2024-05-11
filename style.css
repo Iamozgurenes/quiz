@@ -1,6 +1,10 @@
 .btn_start,
 .quiz_box,
 .score_box {
+    
+    background-color: black;
+    backdrop-filter: blur(100px);
+
     position: absolute;
     top: 50%;
     left: 50%;
@@ -39,7 +43,7 @@
 }
 
 .quiz_box .option_list .option {
-    border: 1px solid #151D3B;
+    border: 1px solid white;
     border-radius: 5px;
     padding: 8px 15px;
     font-size: 16px;
@@ -122,3 +126,13 @@
     font-weight: 500;
     margin-bottom: 10px;
 }
+
+
+
+
+
+html, body{
+ background-color: black;
+    
+}
+
