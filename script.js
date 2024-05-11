@@ -6,6 +6,7 @@ const quiz = new Quiz(sorular);
 document.querySelector(".btn_start").addEventListener("click", function() {
     document.querySelector(".quiz_box").classList.add("active");
     soruGoster(quiz.soruGetir());
+    soruSayisiGoster(quiz.soruIndex + 1 , quiz.sorular.length);
     document.querySelector(".next_btn").classList.remove("show");
 })
 
@@ -13,6 +14,7 @@ document.querySelector(".next_btn").addEventListener("click", function() {
     if (quiz.sorular.length != quiz.soruIndex + 1) {
         quiz.soruIndex += 1;
         soruGoster(quiz.soruGetir());
+        soruSayisiGoster(quiz.soruIndex + 1 , quiz.sorular.length);
         document.querySelector(".next_btn").classList.remove("show");
     } else {
         console.log("quiz bitti");
@@ -62,4 +64,10 @@ function optionSelected(option) {
     }
 
     document.querySelector(".next_btn").classList.add("show");
+}
+
+
+function soruSayisiGoster(soruSirası , toplamSoru) {
+    let tag = `<span class="badge bg-warning">${soruSirası} / ${toplamSoru}</span>`;
+    document.querySelector(".quiz_box .question_index").innerHTML = tag;
 }
