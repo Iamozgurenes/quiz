@@ -1,3 +1,8 @@
+html, body{
+    background-color: black;
+       
+   }
+
 .btn_start,
 .quiz_box,
 .score_box {
@@ -31,6 +36,7 @@
 .quiz_box header .title {
     font-size: 20px;
     font-weight: 600;
+
 }
 
 .quiz_box .question_text {
@@ -129,10 +135,22 @@
 
 
 
+/* SÜRE */
 
+.quiz_box header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-html, body{
- background-color: black;
-    
 }
+
+.quiz_box header .timer {
+    display: flex;
+    padding: 5px;
+    fonst-size: 15px;
+    radius: 100%;
+}
+
+
+
 

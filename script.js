@@ -4,6 +4,7 @@ const quiz = new Quiz(sorular);
 
 
 document.querySelector(".btn_start").addEventListener("click", function() {
+    startTime(14);
     document.querySelector(".quiz_box").classList.add("active");
     soruGoster(quiz.soruGetir());
     soruSayisiGoster(quiz.soruIndex + 1 , quiz.sorular.length);
@@ -13,11 +14,14 @@ document.querySelector(".btn_start").addEventListener("click", function() {
 document.querySelector(".next_btn").addEventListener("click", function() {
     if (quiz.sorular.length != quiz.soruIndex + 1) {
         quiz.soruIndex += 1;
+        clearInterval(counter);
+        startTime(15);
         soruGoster(quiz.soruGetir());
         soruSayisiGoster(quiz.soruIndex + 1 , quiz.sorular.length);
         document.querySelector(".next_btn").classList.remove("show");
     } else {
         console.log("quiz bitti");
+        clearInterval(counter);
         document.querySelector(".quiz_box").classList.remove("active");
         skoruGoster(quiz.sorular.length, quiz.dogruCevapSayisi, quiz.yanlısCevapSayisi);
         document.querySelector(".score_box").classList.add("active");
@@ -51,6 +55,7 @@ function soruGoster(soru) {
 }
 
 function optionSelected(option) {
+    clearInterval(counter);
     let cevap = option.querySelector("span b").textContent;
     let soru = quiz.soruGetir();
 
@@ -94,3 +99,30 @@ document.querySelector(".btn_replay").addEventListener("click", function() {
     document.querySelector(".score_box").classList.remove("active");
     document.querySelector(".btn_start").click();
 });
+
+var counter;
+function startTime(time) {
+   counter = setInterval(timer, 1000);
+
+    function timer() {
+       document.querySelector(".time_second").textContent = time;
+       time--;
+
+       if(time < 0) {
+           clearInterval(counter);
+              document.querySelector(".time_text").textContent = "Süre Bitti!";
+
+              var cevap = quiz.soruGetir().dogruCevap;
+
+              for(let option of option_list.children) {
+                  if(option.querySelector("span b").textContent == cevap) {
+                      option.classList.add("correct");
+                      option.insertAdjacentHTML("beforeend", correctIcon);
+                  }
+                  option.classList.add("disabled");
+              }
+
+                document.querySelector(".next_btn").classList.add("show");
+       }
+    }
+}
